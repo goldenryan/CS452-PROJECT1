@@ -2,6 +2,7 @@
 #define OWNINITSHADER2_H_
 
 #include <SDL2/SDL.h>
+//#include "SDL_ttf.h"
 #include "GL/glew.h"
 //#include "GL/freeglut.h"
 //#include "GL/gl.h"

@@ -1,5 +1,5 @@
 #include "owninitshader2.h"
-#include <cstdlib>
+#include <cstdlib> 
 using namespace std;
 
 // TEST WITH g++ testlab3.cpp -lSDL2 -lglut -lGL -lGLEW -g ; ./a.out
@@ -21,6 +21,8 @@ GLuint program;
 
 GLfloat pit, yaw;
 GLfloat scale = 1;
+int scorel = 0;
+int scorer = 0;
 
 glm::vec3 transCamera;
 
@@ -101,6 +103,8 @@ void init(){
 
 void reset(){
 	// SETUP POSITIONS //
+	cout << "Left: " << scorel << "  Right: " << scorer << endl; 
+        //score is show in terminal
 	transCamera.x = 25;
 
 	transP1.x = MIN_MOVE_X;
@@ -154,6 +158,7 @@ void input(SDL_Window* screen){
 	if(ballVelX > 0){
 		float barrier = MAX_MOVE_X - BALL_WIDTH;
 		if(transBall.x > barrier + 1){
+                        scorel++;
 			reset();
 		} else if(transBall.x > barrier){
 			if(transBall.y >= transP2.y && transBall.y <= transP2.y + PADDLE_HEIGHT){
@@ -165,6 +170,7 @@ void input(SDL_Window* screen){
 	if(ballVelX < 0){
 		float barrier = MIN_MOVE_X + PADDLE_WIDTH;
 		if(transBall.x < barrier - 1){
+                        scorer++;
 			reset();
 		} else if(transBall.x < barrier){
 			if(transBall.y >= transP1.y && transBall.y <= transP1.y + PADDLE_HEIGHT){
@@ -235,7 +241,7 @@ int main(int argc, char **argv){
 		}
 		//make a windo using SDL
 		window = SDL_CreateWindow(
-				"Sunset House", //Window title
+				"SHARKS WITH LASERS", //Window title
 				0,//SDL_WINDOWPOS_UNDEFINED, //x position
 				0,//SDL_WINDOWPOS_UNDEFINED, //y position
 				600,	//width, in pixels
@@ -248,7 +254,6 @@ int main(int argc, char **argv){
 		}
 		//creates opengl context associated with the window
 		SDL_GLContext glcontext=SDL_GL_CreateContext(window);
-		
 		glewExperimental=GL_TRUE;
 		if(glewInit()){
 				fprintf(stderr, "Unable to initalize GLEW");
